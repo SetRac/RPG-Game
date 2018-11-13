@@ -1,4 +1,20 @@
 .char-image {
-    width: 320px;
-    height: 180px;
+    width: 160px;
+    height: 90px;
+}
+
+.choice {
+    float: left;
+    padding: 10px;
+    text-align: center;
+    border-style: solid;
+    border-color: green;
+}
+
+.characters {
+    margin: 25px;
+}
+
+h1 {
+    text-align: right;
 }
