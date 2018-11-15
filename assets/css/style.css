@@ -28,6 +28,11 @@ body {
     color: white;
 }
 
+#dead {
+    position: fixed;
+    left: -10000px;
+}
+
 h1 {
     text-align: right;
 }

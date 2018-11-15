@@ -22,6 +22,7 @@ function resetvalues() {
     charap = 0;
     baseattack = 0;
     enemyname = "";
+    enemyid = "";
     enemyhp = 0
     enemycap = 0;
     remainingenemies = 3;
@@ -40,7 +41,9 @@ function resetcharacters() {
     $(".characters").append($("#sub"));
     $(".characters").append($("#kit"));
     $(".characters").append($("#shao"));
-    $("#reset").detach();
+    $("#resetbtn").detach();
+    $("#info").text("");
+    $("#info2").text("");
 }
 
 resetvalues();
@@ -75,6 +78,8 @@ resetvalues();
 
 
 $(".choice").on("click", function() {
+    $("#info").text("");
+    $("#info").text("");
     if (charselected == false && enemyselected == false) {
         charname = $(this).attr("name");
         charhp = $(this).attr("hp");
@@ -106,6 +111,7 @@ $(".choice").on("click", function() {
         charselected = true;
     } else if (charselected == true && enemyselected == false) {
         enemyname = $(this).attr("name");
+        enemyid = $(this).attr("id");
         enemyhp = $(this).attr("hp");
         enemycap = $(this).attr("cap");
         enemyhp = parseInt(enemyhp);
@@ -117,26 +123,55 @@ $(".choice").on("click", function() {
 
 $(".btn").on("click", function() {
     if (charselected == true && enemyselected == true) {
+    $("#info").text("You attacked " + enemyname + " for " + charap + " damage.");
+    $("#info2").text(enemyname + " attacked you back for " + enemycap + " damage.");
     enemyhp = enemyhp - charap;
     charhp = charhp - enemycap;
     charap = charap + baseattack;
     $("#" + charname + "-hp").text(charhp);
     $("#" + enemyname + "-hp").text(enemyhp);
     checkoutcome();
+    
     }
 });
 
 function checkoutcome() {
-    if (enemyhp <= 0) {
-        resetvalues();
+    console.log("C: "+charhp);
+    console.log("E: "+enemyhp)
+    if (charhp <= 0) {
+        charselected = false;
         var resetbutton = $("<button>");
-        resetbutton.attr("id", "reset");
+        resetbutton.attr("id", "resetbtn");
         resetbutton.attr("class", "btn btn-secondary");
         resetbutton.text("Reset");
-        $("#info").append(resetbutton);
-        $("#reset").on("click", function() {
+        $("#info").text("YOU LOSE!");
+        $("#info2").text("");
+        $("#info2").append(resetbutton);
+        $("#resetbtn").on("click", function() {
+            resetvalues();
             resetcharacters();
         });
+    } else if (enemyhp <= 0 && remainingenemies > 0) {
+        remainingenemies --;
+        if (remainingenemies > 0) {
+            $("#dead").append($("#"+enemyid));
+            enemyselected = false;
+            $("#info").text("You have defeated " + enemyname + ". Choose another enemy.");
+            $("#info2").text("");
+        } else if (enemyhp <= 0 && remainingenemies == 0) {
+            charselected = false;
+            var resetbutton = $("<button>");
+            resetbutton.attr("id", "resetbtn");
+            resetbutton.attr("class", "btn btn-secondary");
+            resetbutton.text("Reset");
+            $("#info").text("YOU WIN!!!!!! GAME OVER");
+            $("#info2").text("");
+            $("#info2").append(resetbutton);
+            $("#resetbtn").on("click", function() {
+                resetvalues();
+                resetcharacters();
+            });
+        }
     }
 }
 
