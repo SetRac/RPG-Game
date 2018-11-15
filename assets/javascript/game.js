@@ -1,6 +1,4 @@
 var scorpion = {
-    // name: "SCORPION", 
-    // src: "assets/images/scorpion.jpg",
     hp: 120,
 };
 
@@ -27,6 +25,8 @@ function resetvalues() {
     enemycap = 0;
     remainingenemies = 3;
 
+    ename = "";
+    cname = "";
     charselected = false;
     enemyselected = false;
 
@@ -78,8 +78,6 @@ resetvalues();
 
 
 $(".choice").on("click", function() {
-    $("#info").text("");
-    $("#info").text("");
     if (charselected == false && enemyselected == false) {
         charname = $(this).attr("name");
         charhp = $(this).attr("hp");
@@ -110,6 +108,8 @@ $(".choice").on("click", function() {
         }
         charselected = true;
     } else if (charselected == true && enemyselected == false) {
+        $("#info").text("");
+        $("#info2").text("");
         enemyname = $(this).attr("name");
         enemyid = $(this).attr("id");
         enemyhp = $(this).attr("hp");
@@ -118,20 +118,37 @@ $(".choice").on("click", function() {
         enemycap = parseInt(enemycap);
         $("#defender").append($(this));
         enemyselected = true;
+        if (enemyname == "scorpion") {
+            ename = "SCORPION";
+        }
+        if (enemyname == "subzero") {
+            ename = "SUB-ZERO";
+        }
+        if (enemyname == "kitana") {
+            ename = "KITANA";
+        }
+        if (enemyname == "shaokahn") {
+            ename = "SHAO KAHN";
+        }
     }
 });
 
 $(".btn").on("click", function() {
     if (charselected == true && enemyselected == true) {
-    $("#info").text("You attacked " + enemyname + " for " + charap + " damage.");
-    $("#info2").text(enemyname + " attacked you back for " + enemycap + " damage.");
+    $("#info").text("You attacked " + ename + " for " + charap + " damage.");
+    $("#info2").text(ename + " attacked you back for " + enemycap + " damage.");
     enemyhp = enemyhp - charap;
     charhp = charhp - enemycap;
     charap = charap + baseattack;
     $("#" + charname + "-hp").text(charhp);
     $("#" + enemyname + "-hp").text(enemyhp);
     checkoutcome();
-    
+    } else if (charselected == false && enemyselected == false) {
+        $("#info").text("Select a character.");
+        $("#info2").text("");
+    } else if (charselected == true && enemyselected == false) {
+        $("#info").text("Select an enemy.");
+        $("#info2").text("");
     }
 });
 
@@ -156,7 +173,7 @@ function checkoutcome() {
         if (remainingenemies > 0) {
             $("#dead").append($("#"+enemyid));
             enemyselected = false;
-            $("#info").text("You have defeated " + enemyname + ". Choose another enemy.");
+            $("#info").text("You have defeated " + ename + ". Choose another enemy.");
             $("#info2").text("");
         } else if (enemyhp <= 0 && remainingenemies == 0) {
             charselected = false;
@@ -179,4 +196,3 @@ console.log(charhp);
 console.log(enemyhp);
 console.log(charap);
 console.log(enemycap);
-// #item.detach() will remove item

@@ -1,5 +1,8 @@
 body {
     margin: 25px;
+    background-image: url("../images/background.png");
+    background-size: 100%;
+    color: white;
 }
 
 .char-image {
@@ -15,8 +18,8 @@ body {
     border-color: green;
 }
 
-.characters, #enemy, #selected {
-    /* margin: 25px; */
+.characters {
+    background-color:#302f71;
 }
 
 #enemy {
