@@ -16,19 +16,34 @@ var shaokahn = {
     hp: 200
 };
 
-charname = "";
-charhp = 0;
-charap = 0;
-enemyhp = 0
-enemycap = 0;
+function resetvalues() {
+    charname = "";
+    charhp = 0;
+    charap = 0;
+    baseattack = 0;
+    enemyname = "";
+    enemyhp = 0
+    enemycap = 0;
+    remainingenemies = 3;
 
-charselected = false;
-enemyselected = false;
+    charselected = false;
+    enemyselected = false;
 
-$("#scorpion-hp").text(scorpion.hp);
-$("#subzero-hp").text(subzero.hp);
-$("#kitana-hp").text(kitana.hp);
-$("#shaokahn-hp").text(shaokahn.hp);
+    $("#scorpion-hp").text(scorpion.hp);
+    $("#subzero-hp").text(subzero.hp);
+    $("#kitana-hp").text(kitana.hp);
+    $("#shaokahn-hp").text(shaokahn.hp);
+}
+
+function resetcharacters() {
+    $(".characters").append($("#scor"));
+    $(".characters").append($("#sub"));
+    $(".characters").append($("#kit"));
+    $(".characters").append($("#shao"));
+    $("#reset").detach();
+}
+
+resetvalues();
 
 // var scorpion = $("<img>");
 // scorpion.addClass("char-image");
@@ -66,6 +81,7 @@ $(".choice").on("click", function() {
         charap = $(this).attr("ap");
         charhp = parseInt(charhp);
         charap = parseInt(charap);
+        baseattack = charap;
         $("#selected").append($(this));
         if (charname == "scorpion") {
             $("#enemy").append($("#sub"));
@@ -89,13 +105,43 @@ $(".choice").on("click", function() {
         }
         charselected = true;
     } else if (charselected == true && enemyselected == false) {
+        enemyname = $(this).attr("name");
         enemyhp = $(this).attr("hp");
         enemycap = $(this).attr("cap");
         enemyhp = parseInt(enemyhp);
         enemycap = parseInt(enemycap);
         $("#defender").append($(this));
-        enemyselected = false;
+        enemyselected = true;
     }
 });
 
+$(".btn").on("click", function() {
+    if (charselected == true && enemyselected == true) {
+    enemyhp = enemyhp - charap;
+    charhp = charhp - enemycap;
+    charap = charap + baseattack;
+    $("#" + charname + "-hp").text(charhp);
+    $("#" + enemyname + "-hp").text(enemyhp);
+    checkoutcome();
+    }
+});
+
+function checkoutcome() {
+    if (enemyhp <= 0) {
+        resetvalues();
+        var resetbutton = $("<button>");
+        resetbutton.attr("id", "reset");
+        resetbutton.attr("class", "btn btn-secondary");
+        resetbutton.text("Reset");
+        $("#info").append(resetbutton);
+        $("#reset").on("click", function() {
+            resetcharacters();
+        });
+    }
+}
+
 console.log(charhp);
+console.log(enemyhp);
+console.log(charap);
+console.log(enemycap);
+// #item.detach() will remove item

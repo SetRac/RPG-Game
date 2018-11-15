@@ -1,3 +1,7 @@
+body {
+    margin: 25px;
+}
+
 .char-image {
     width: 160px;
     height: 90px;
@@ -12,11 +16,16 @@
 }
 
 .characters, #enemy, #selected {
-    margin: 25px;
+    /* margin: 25px; */
 }
 
 #enemy {
     background-color: red;
+}
+
+#defender {
+    background-color: black;
+    color: white;
 }
 
 h1 {
