@@ -3,15 +3,15 @@ var scorpion = {
 };
 
 var subzero = {
-    hp: 100
+    hp: 150
 };
 
 var kitana = {
-    hp: 110
+    hp: 100
 };
 
 var shaokahn = {
-    hp: 200
+    hp: 160
 };
 
 function resetvalues() {
