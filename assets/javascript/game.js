@@ -48,35 +48,6 @@ function resetcharacters() {
 
 resetvalues();
 
-// var scorpion = $("<img>");
-// scorpion.addClass("char-image");
-// scorpion.attr("src", "assets/images/scorpion.jpg");
-// $("#scorpion-character").text(190);
-
-
-// var subzero = $("<img>");
-// subzero.addClass("char-image");
-// subzero.attr("src", "assets/images/subzero.jpg");
-// subzero.attr("hp", 120);
-// subzero.attr("ap", 8);
-// subzero.attr("cap", 150);
-
-
-// $("#scorpion-char").append(scorpion);
-
-// $("#characters").append(subzero);
-
-// $(".choice").on("click", function() {
-//     $(this).attr("src", "assets/images/kitana.jpg");
-//     $("#selected").append($(this));
-// });
-
-
-
-// if booleans are true - can't select stuff
-
-
-
 $(".choice").on("click", function() {
     if (charselected == false && enemyselected == false) {
         charname = $(this).attr("name");
@@ -108,27 +79,31 @@ $(".choice").on("click", function() {
         }
         charselected = true;
     } else if (charselected == true && enemyselected == false) {
-        $("#info").text("");
-        $("#info2").text("");
-        enemyname = $(this).attr("name");
-        enemyid = $(this).attr("id");
-        enemyhp = $(this).attr("hp");
-        enemycap = $(this).attr("cap");
-        enemyhp = parseInt(enemyhp);
-        enemycap = parseInt(enemycap);
-        $("#defender").append($(this));
-        enemyselected = true;
-        if (enemyname == "scorpion") {
-            ename = "SCORPION";
-        }
-        if (enemyname == "subzero") {
-            ename = "SUB-ZERO";
-        }
-        if (enemyname == "kitana") {
-            ename = "KITANA";
-        }
-        if (enemyname == "shaokahn") {
-            ename = "SHAO KAHN";
+        if ($(this).attr("name") == charname) {
+            $("#info").text("Select an Enemy.");
+        } else {
+            $("#info").text("");
+            $("#info2").text("");
+            enemyname = $(this).attr("name");
+            enemyid = $(this).attr("id");
+            enemyhp = $(this).attr("hp");
+            enemycap = $(this).attr("cap");
+            enemyhp = parseInt(enemyhp);
+            enemycap = parseInt(enemycap);
+            $("#defender").append($(this));
+            enemyselected = true;
+            if (enemyname == "scorpion") {
+                ename = "SCORPION";
+            }
+            if (enemyname == "subzero") {
+                ename = "SUB-ZERO";
+            }
+            if (enemyname == "kitana") {
+                ename = "KITANA";
+            }
+            if (enemyname == "shaokahn") {
+                ename = "SHAO KAHN";
+            }
         }
     }
 });
